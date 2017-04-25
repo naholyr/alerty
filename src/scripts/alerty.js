@@ -229,6 +229,12 @@
           if (opts && opts.fontColor) $message.style.color =opts.fontColor;
 
         } else {
+          if (type !== 'prompt') {
+            // Unfocus current element to prevent stacking dialogs when pressing Enter
+            // Toasts are not concerned and prompt has alread set focus to its input
+            document.activeElement.blur();
+          }
+          
           commonUse.addClass(document.body, 'no-scrolling'); // body no scorll
           (opts && opts.title) ? $title.innerHTML = opts.title : commonUse.removeElement($title); // handle title if set
           (opts && opts.okLabel) ? $btnOk.innerHTML = opts.okLabel : $btnOk.innerHTML = this.defaults.okLabel; // handle ok text if set
